@@ -61,8 +61,8 @@ export default defineComponent({
     const atk = ref<number | undefined>();
     const def = ref<number | undefined>();
     const atkSpc = ref<number | undefined>();
-    const type1 = ref<[] | undefined>();
-    const type2 = ref<[] | undefined>();
+    const type1 = ref<string | undefined>();
+    const type2 = ref<string | undefined>();
 
     const fectchPokemon = async (value: string | number) => {
       loading.value = true;

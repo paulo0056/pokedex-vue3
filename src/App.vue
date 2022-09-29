@@ -8,7 +8,23 @@
       <span class="pokemon_number">{{ pokemonNumber }}</span> -
       <span class="pokemon_name">{{ pokemonNameSearched }}</span>
     </h1>
-
+    <h3 class="pokemon_detail_grid">
+      <span class="pokemon_hp"
+        >HP: <span class="hp">{{ hp }}</span></span
+      >
+      <span class="pokemon_atk"
+        >ATK: <span class="atk">{{ atk }}</span></span
+      >
+      <span class="pokemon_def"
+        >Def: <span class="def">{{ def }}</span></span
+      >
+      <span class="pokemon_spc_atk"
+        >Atk Spc: <span class="atk_spc">{{ atkSpc }}</span></span
+      >
+    </h3>
+    <span class="pokemon_type"
+      >Type: <span class="type">{{ `${type1} / ${type2}` }}</span></span
+    >
     <form class="form" @submit.prevent="fectchPokemon(pokemonName)">
       <input
         type="search"
@@ -22,7 +38,7 @@
       <button class="button btn-prev" @click="backPokemon">&lt; Prev</button>
       <button class="button btn-next" @click="nextPokemon">Next &gt;</button>
     </div>
-    <img src="./assets/img/pokedex.png" alt="pokedex" class="pokedex" />
+    <img src="./assets/img/pokedex-bg.png" alt="pokedex" class="pokedex" />
   </div>
 </template>
 
@@ -41,6 +57,13 @@ export default defineComponent({
     const pokemonImage = ref<string | undefined>();
     const apiMessage = ref<string | undefined>("Loading...");
 
+    const hp = ref<number | undefined>();
+    const atk = ref<number | undefined>();
+    const def = ref<number | undefined>();
+    const atkSpc = ref<number | undefined>();
+    const type1 = ref<[] | undefined>();
+    const type2 = ref<[] | undefined>();
+
     const fectchPokemon = async (value: string | number) => {
       loading.value = true;
       pokemonNameSearched.value = value;
@@ -58,7 +81,14 @@ export default defineComponent({
           data.sprites.versions["generation-v"]["black-white"].animated[
             "front_default"
           ];
+        searchPokemon.value = data.id;
         loading.value = false;
+        hp.value = data.stats[0].base_stat;
+        atk.value = data.stats[1].base_stat;
+        def.value = data.stats[2].base_stat;
+        atkSpc.value = data.stats[3].base_stat;
+        type1.value = data.types[0].type.name;
+        type2.value = data.types[1].type.name;
       } else {
         pokemonImage.value = undefined;
 
@@ -88,6 +118,12 @@ export default defineComponent({
       nextPokemon,
       backPokemon,
       loading,
+      hp,
+      atk,
+      def,
+      atkSpc,
+      type1,
+      type2,
     };
   },
   created() {

@@ -92,7 +92,7 @@ export default defineComponent({
       } else {
         pokemonImage.value = undefined;
 
-        apiMessage.value = "Pokemon Not Found D:";
+        apiMessage.value = "Not Found D:";
         loading.value = true;
       }
     };
